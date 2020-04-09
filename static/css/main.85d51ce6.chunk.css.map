@@ -1,0 +1,1 @@
+{"version":3,"sources":["NumberCard.module.scss","App.css"],"names":[],"mappings":"AAAA,0BACE,cAAe,CACf,gBAAiB,CCFnB,cACE,eACF","file":"main.85d51ce6.chunk.css","sourcesContent":[".number {\n  font-size: 2rem;\n  text-align: right;\n}\n",".ui.container {\n  margin-top: 48px;\n}\n"]}
