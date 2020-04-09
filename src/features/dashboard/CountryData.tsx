@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import NumberCard from "./NumberCard";
+import styles from './CountryData.module.scss'
 
 export interface Props {
   countryCode: string;
@@ -17,22 +18,18 @@ const CountryData: React.FC<Props> = ({ countryCode }) => {
     state.corona.latestData?.find((cd) => cd.countrycode.iso2 === countryCode)
   );
 
-  if (data == null) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="ui segment">
-      <h3>{data.countryregion}</h3>
+    <div className="ui container">
+      <h2 className={styles.countryHeader}>{data?.countryregion || countryCode}</h2>
 
       <div className="ui grid">
         <div className="doubling four column row">
-          <NumberCard small="Confirmed" large={data.confirmed} />
-          <NumberCard small="Recovered" large={data.recovered} />
-          <NumberCard small="Deaths" large={data.deaths} />
+          <NumberCard small="Confirmed" large={data?.confirmed} />
+          <NumberCard small="Recovered" large={data?.recovered} />
+          <NumberCard small="Deaths" large={data?.deaths} />
           <NumberCard
             small="Fatality Rate"
-            large={formatPercs(data.deaths / data.confirmed)}
+            large={data ? formatPercs(data.deaths / data.confirmed) : ''}
           />
         </div>
       </div>

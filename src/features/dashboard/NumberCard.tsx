@@ -3,7 +3,7 @@ import styles from './NumberCard.module.scss'
 
 interface Props {
   small: string | number;
-  large: string | number;
+  large: string | number | undefined;
 }
 
 const NumberCard: React.FC<Props> = ({ small, large }) => {
@@ -12,7 +12,7 @@ const NumberCard: React.FC<Props> = ({ small, large }) => {
       <div className="ui card">
         <div className="content">
           <div className="description">{small}</div>
-          <div className={styles.number}>{large}</div>
+          <div className={styles.number}>{large || '-'}</div>
         </div>
       </div>
     </div>
