@@ -17,10 +17,16 @@ code {
     monospace;
 }
 
-green {
+.footer {
+  margin-bottom: 72px;
+  margin-top: 24px;
+  text-align: center;
+}
+
+.green {
   color: green;
 }
 
-red {
+.red {
   color: red;
 }

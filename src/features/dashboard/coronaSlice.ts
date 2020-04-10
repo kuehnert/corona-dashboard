@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
-// import { AppThunk, RootState } from "../../app/store";
 import { AppThunk, RootState } from "../../app/store";
 import axios from "axios";
 import * as dateFns from "date-fns";
@@ -9,9 +8,6 @@ export interface CountryData extends GlobalData {
   lastupdate: string;
   location: { lat: number; lng: number };
   countrycode: { iso2: string; iso3: string };
-  // confirmed: number;
-  // deaths: number;
-  // recovered: number;
 }
 
 interface HistoricData {
@@ -20,6 +16,11 @@ interface HistoricData {
   countrycode: { iso2: string; iso3: string };
   location: { lat: number; lng: number };
   timeseries: TimeSeriesData[];
+}
+
+interface DeltaSeriesData extends TimeSeriesData {
+  date: string;
+  doublingtime: number;
 }
 
 interface TimeSeriesData extends GlobalData {
@@ -41,8 +42,9 @@ interface CoronaState {
   latestData: CountryData[] | null;
   latestGlobalData: GlobalData | null;
   historicData: { [code: string]: HistoricData };
-  deltaData: { [code: string]: TimeSeriesData[] };
+  deltaData: { [code: string]: DeltaSeriesData[] };
   selectedCountries: string[];
+  daysToShow: number;
 }
 
 const initialState: CoronaState = {
@@ -51,8 +53,9 @@ const initialState: CoronaState = {
   historicData: {},
   deltaData: {},
   // selectedCountries: ["DE", "GB", "FR", "JP", "US"],
-  selectedCountries: ["DE", "GB", "US"],
+  selectedCountries: ["DE", "GB", "US", "FR"],
   // selectedCountries: ["DE"],
+  daysToShow: 7,
 };
 
 export const CoronaSlice = createSlice({
@@ -74,8 +77,10 @@ export const CoronaSlice = createSlice({
       const ts = data.timeseries;
       const dts = new Array(ts.length);
 
+      // calc deltas to previous days
+      dts[0] = { ...ts[0] };
       for (let i = 1; i < ts.length; i++) {
-        const d0 = ts[i-1];
+        const d0 = ts[i - 1];
         const d1 = ts[i];
         dts[i] = {
           date: d0.date,
@@ -83,6 +88,29 @@ export const CoronaSlice = createSlice({
           deaths: d0.deaths - d1.deaths,
           recovered: d0.recovered - d1.recovered,
         };
+      }
+
+      // calc doubling times
+      for (let i = 0; i < ts.length; i++) {
+        // target if half of original value
+        const target = ts[i].confirmed / 2.0;
+        if (target === 0) {
+          break;
+        }
+
+        let j = i + 1;
+
+        // find out when it was that
+        while (j < ts.length && ts[j].confirmed > target) {
+          j += 1;
+        }
+
+        // valid?
+        if (j < ts.length) {
+          dts[i].doublingtime = j - i;
+        } else {
+          dts[i].doublingtime = null;
+        }
       }
 
       state.historicData[code] = data;

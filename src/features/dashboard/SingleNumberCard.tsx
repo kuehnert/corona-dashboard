@@ -20,8 +20,14 @@ interface DayPoint {
   delta: number;
 }
 
-const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
+const SingleNumberCard: React.FC<Props> = ({
+  countrycode,
+  label,
+  name,
+  value,
+}) => {
   const [weekData, setWeekData] = useState<DayPoint[]>([]);
+  const { daysToShow } = useSelector((state: RootState) => state.corona);
   const data = useSelector((state: RootState) =>
     state.corona.latestData?.find((cd) => cd.countrycode.iso2 === countrycode)
   );
@@ -33,7 +39,6 @@ const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
     (state: RootState) =>
       state.corona.historicData && state.corona.deltaData[countrycode]
   );
-  const { daysToShow } = useSelector((state: RootState) => state.corona);
 
   useEffect(() => {
     if (data == null || deltaData == null || name == null) return;
@@ -50,10 +55,8 @@ const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
   }, [data, deltaData]);
 
   let valueStr = null;
-  if (value) {
-    valueStr = value as number;
-  } else if (data && name && data[name]) {
-    valueStr = data[name] as number;
+  if (deltaData) {
+    valueStr = deltaData[0].doublingtime;
   }
 
   return (
@@ -61,16 +64,13 @@ const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
       <Card className="">
         <div className={styles.label}>{label}</div>
         <div className={styles.number}>
-          <NumberValue value={valueStr} />
+          <NumberValue value={valueStr} /> days
         </div>
 
         {weekData.map((wd) => (
-          <div key={wd.date} className="p-grid">
-            <div className={classnames("p-col-5", styles.left)}>
-              <NumberValue value={wd.delta} withSign={true} />
-            </div>
-            <div className={classnames("p-col-7", styles.right)}>
-              <NumberValue value={wd.value} />
+          <div key={wd.date} className="p-grid p-justify-center">
+            <div className={classnames("p-col-5", styles.right)}>
+              <NumberValue value={wd.delta} /> days
             </div>
           </div>
         ))}
@@ -79,4 +79,4 @@ const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
   );
 };
 
-export default NumberCard;
+export default SingleNumberCard;

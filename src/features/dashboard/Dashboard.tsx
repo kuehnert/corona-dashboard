@@ -6,6 +6,7 @@ import { fetchLatestData, fetchLatestGlobalData } from "./coronaSlice";
 import CountryData from "./CountryData";
 import styles from "./Dashboard.module.scss";
 import GlobalData from "./GlobalData";
+import {Card} from 'primereact/card';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,13 @@ const Dashboard: React.FC = () => {
       {selectedCountries.map((c) => (
         <CountryData key={c} countrycode={c} />
       ))}
+
+      <Card className="footer">
+        Thanks to Ainize for providing the data API:{" "}
+        <a href="https://ainize.ai/laeyoung/wuhan-coronavirus-api">
+          https://ainize.ai/laeyoung/wuhan-coronavirus-api
+        </a>
+      </Card>
     </div>
   );
 };

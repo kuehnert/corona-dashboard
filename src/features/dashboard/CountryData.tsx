@@ -1,18 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import NumberCard from "./NumberCard";
+import { fetchCountryHistoricData } from "./coronaSlice";
 import styles from "./CountryData.module.scss";
-import { fetchCountryHistoricData, GlobalData } from "./coronaSlice";
+import NumberCard from "./NumberCard";
+import SingleNumberCard from "./SingleNumberCard";
 
 export interface Props {
   countrycode: string;
-}
-
-function formatPercs(n: number) {
-  return `${Math.round(n * 1000) / 10} %`;
 }
 
 const CountryData: React.FC<Props> = ({ countrycode }) => {
@@ -43,10 +39,12 @@ const CountryData: React.FC<Props> = ({ countrycode }) => {
           label="Recovered"
         />
         <NumberCard countrycode={countrycode} name="deaths" label="Deaths" />
-        {/* <NumberCard
-            small="Fatality Rate"
-            large={data ? formatPercs(data.deaths / data.confirmed) : ""}
-          /> */}
+
+        <SingleNumberCard
+          countrycode={countrycode}
+          label="Doubling Time"
+          name="doublingtime"
+        />
       </div>
     </div>
   );
