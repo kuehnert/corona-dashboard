@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import { RootState } from "../../app/store";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 import { fetchLatestData, fetchLatestGlobalData } from "./coronaSlice";
 import CountryData from "./CountryData";
-import classnames from "classnames";
-import styles from './Dashboard.module.scss'
+import styles from "./Dashboard.module.scss";
 import GlobalData from "./GlobalData";
 
 const Dashboard: React.FC = () => {
@@ -18,13 +17,13 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className={classnames("ui container", styles.rootContainer)}>
+    <div className={styles.rootContainer}>
       <h1>Mr K.'s Corona Dashboard</h1>
 
       <GlobalData />
 
       {selectedCountries.map((c) => (
-        <CountryData key={c} countryCode={c} />
+        <CountryData key={c} countrycode={c} />
       ))}
     </div>
   );
