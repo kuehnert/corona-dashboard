@@ -29,16 +29,19 @@ const CountryData: React.FC<Props> = ({ countrycode }) => {
 
       <div className="p-grid">
         <NumberCard countrycode={countrycode} name="acute" label="Acute" />
+
         <NumberCard
           countrycode={countrycode}
           name="confirmed"
           label="Confirmed"
         />
+
         <NumberCard
           countrycode={countrycode}
           name="recovered"
           label="Recovered"
         />
+
         <NumberCard countrycode={countrycode} name="deaths" label="Deaths" />
 
         <SingleNumberCard

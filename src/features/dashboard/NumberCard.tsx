@@ -60,7 +60,7 @@ const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
         {weekData.map((wd) => (
           <div key={wd.date} className="p-grid">
             <div className={classnames("p-col-5", styles.left)}>
-              <NumberValue value={wd.delta} withSign={true} />
+              <NumberValue value={wd.delta} withSign={true} withColor={true} positiveGood={name === 'recovered'} />
             </div>
             <div className={classnames("p-col-7", styles.right)}>
               <NumberValue value={wd.value} />

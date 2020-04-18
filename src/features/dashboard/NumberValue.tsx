@@ -6,6 +6,7 @@ interface Props {
   value: number | null | undefined;
   positiveGood?: boolean;
   withSign?: boolean;
+  withColor?: boolean;
   percentage?: boolean;
 }
 
@@ -13,6 +14,7 @@ const NumberValue: React.FC<Props> = ({
   value,
   positiveGood = false,
   withSign = false,
+  withColor = false,
   percentage = false,
 }) => {
   let sign = "";
@@ -29,8 +31,17 @@ const NumberValue: React.FC<Props> = ({
     valueStr = value.toLocaleString();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let good =
+    withColor &&
+    ((positiveGood && sign === "+") || (!positiveGood && sign === ""));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  let bad =
+    withColor &&
+    ((positiveGood && sign === "") || (!positiveGood && sign === "+"));
+
   return (
-    <span className={classnames({ red: sign === "-", green: sign === "+" })}>
+    <span className={classnames({good: good, bad: bad})}>
       {sign}
       {valueStr}
     </span>

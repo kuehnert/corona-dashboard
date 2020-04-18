@@ -27,10 +27,26 @@ const Dashboard: React.FC = () => {
       ))}
 
       <Card className="footer">
-        Thanks to Ainize for providing the data API:{" "}
-        <a href="https://ainize.ai/laeyoung/wuhan-coronavirus-api">
-          https://ainize.ai/laeyoung/wuhan-coronavirus-api
-        </a>
+        <p>
+          Data is from John-Hopkins-University, updated once per day:{" "}
+          <a href="https://github.com/CSSEGISandData/COVID-19">
+            https://github.com/CSSEGISandData/COVID-19
+          </a>
+        </p>
+
+        <p>
+          Inspired by Inje Lee's article.{" "}
+          <a href="https://itnext.io/develop-the-corona-dashboard-in-a-day-b5f1be41fe33">
+            https://itnext.io/develop-the-corona-dashboard-in-a-day-b5f1be41fe33
+          </a>
+        </p>
+
+        <p>
+          Thanks to Ainize for providing the data API:{" "}
+          <a href="https://ainize.ai/laeyoung/wuhan-coronavirus-api">
+            https://ainize.ai/laeyoung/wuhan-coronavirus-api
+          </a>
+        </p>
       </Card>
     </div>
   );
