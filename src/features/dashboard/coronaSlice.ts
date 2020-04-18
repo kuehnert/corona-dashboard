@@ -1,14 +1,7 @@
-import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
-import { AppThunk, RootState } from "../../app/store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import * as dateFns from "date-fns";
-
-export interface CountryData extends GlobalData {
-  countryregion: string;
-  lastupdate: string;
-  location: { lat: number; lng: number };
-  countrycode: { iso2: string; iso3: string };
-}
+import { AppThunk } from "../../app/store";
 
 interface HistoricData {
   countryregion: string;
@@ -18,13 +11,13 @@ interface HistoricData {
   timeseries: TimeSeriesData[];
 }
 
-interface DeltaSeriesData extends TimeSeriesData {
-  date: string;
-  doublingtime: number;
-}
-
 interface TimeSeriesData extends GlobalData {
   date: string;
+  acute: number;
+  doublingtime: number;
+  confirmedDelta: number;
+  deathsDelta: number;
+  recoveredDelta: number;
 }
 
 export interface GlobalData {
@@ -39,21 +32,17 @@ export interface GlobalData {
 }
 
 interface CoronaState {
-  latestData: CountryData[] | null;
   latestGlobalData: GlobalData | null;
   historicData: { [code: string]: HistoricData };
-  deltaData: { [code: string]: DeltaSeriesData[] };
   selectedCountries: string[];
   daysToShow: number;
 }
 
 const initialState: CoronaState = {
-  latestData: null,
   latestGlobalData: null,
   historicData: {},
-  deltaData: {},
   // selectedCountries: ["DE", "GB", "FR", "JP", "US"],
-  selectedCountries: ["DE", "GB", "US", "FR"],
+  selectedCountries: ["DE", "GB", "US", "FR", "CA"],
   // selectedCountries: ["DE"],
   daysToShow: 7,
 };
@@ -62,9 +51,6 @@ export const CoronaSlice = createSlice({
   name: "corona",
   initialState,
   reducers: {
-    fetchLatestDataSuccess: (state, action: PayloadAction<CountryData[]>) => {
-      state.latestData = action.payload;
-    },
     fetchLatestGlobalSuccess: (state, action: PayloadAction<GlobalData>) => {
       state.latestGlobalData = action.payload;
     },
@@ -74,19 +60,24 @@ export const CoronaSlice = createSlice({
     ) => {
       const data = action.payload;
       const code = data.countrycode.iso2;
-      const ts = data.timeseries;
-      const dts = new Array(ts.length);
+      let ts = data.timeseries;
+
+      // calc acute infected
+      ts = ts.map((gd) => ({
+        ...gd,
+        acute: gd.confirmed - gd.recovered - gd.deaths,
+      }));
 
       // calc deltas to previous days
-      dts[0] = { ...ts[0] };
       for (let i = 1; i < ts.length; i++) {
         const d0 = ts[i - 1];
         const d1 = ts[i];
-        dts[i] = {
-          date: d0.date,
-          confirmed: d0.confirmed - d1.confirmed,
-          deaths: d0.deaths - d1.deaths,
-          recovered: d0.recovered - d1.recovered,
+        ts[i] = {
+          ...ts[i],
+          acuteDelta: d0.acute - d1.acute,
+          confirmedDelta: d0.confirmed - d1.confirmed,
+          deathsDelta: d0.deaths - d1.deaths,
+          recoveredDelta: d0.recovered - d1.recovered,
         };
       }
 
@@ -107,20 +98,19 @@ export const CoronaSlice = createSlice({
 
         // valid?
         if (j < ts.length) {
-          dts[i].doublingtime = j - i;
+          ts[i].doublingtime = j - i;
         } else {
-          dts[i].doublingtime = null;
+          ts[i].doublingtime = 0;
         }
       }
 
+      data.timeseries = ts;
       state.historicData[code] = data;
-      state.deltaData[code] = dts;
     },
   },
 });
 
 export const {
-  fetchLatestDataSuccess,
   fetchLatestGlobalSuccess,
   fetchCountryHistoricDataSuccess,
 } = CoronaSlice.actions;
@@ -139,26 +129,6 @@ export const fetchLatestGlobalData = (): AppThunk => async (dispatch) => {
   }
 
   dispatch(fetchLatestGlobalSuccess(data));
-};
-
-export const fetchLatestData = (): AppThunk => async (dispatch, getState) => {
-  const codes = getState().corona.selectedCountries;
-  const requests = codes.map((code) =>
-    axios.get(
-      `https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=${code}&onlyCountries=true`
-    )
-  );
-  let latestData: CountryData[] = [];
-
-  try {
-    const responses = await axios.all(requests);
-    latestData = responses.map((r) => r.data[0]);
-  } catch (error) {
-    console.log("error:", error);
-    return;
-  }
-
-  dispatch(fetchLatestDataSuccess(latestData));
 };
 
 export const fetchCountryHistoricData = (code: string): AppThunk => async (
@@ -189,20 +159,6 @@ export const fetchCountryHistoricData = (code: string): AppThunk => async (
   }
 
   dispatch(fetchCountryHistoricDataSuccess(data));
-};
-
-// export const selectCount = (state: RootState) => state.corona.value;
-const latestDataSelector = (state: RootState) => state.corona.latestData;
-
-export const countryLatestData = (code: string) => {
-  return createSelector(latestDataSelector, (latestData) => {
-    console.log("latestData:", latestData);
-
-    // const data = latestData?.find((cd) => cd.countrycode.iso2 === code);
-    // console.log('data:', data);
-    // return data;
-    return 0;
-  });
 };
 
 export default CoronaSlice.reducer;

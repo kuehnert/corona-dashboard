@@ -22,42 +22,35 @@ interface DayPoint {
 
 const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
   const [weekData, setWeekData] = useState<DayPoint[]>([]);
-  const data = useSelector((state: RootState) =>
-    state.corona.latestData?.find((cd) => cd.countrycode.iso2 === countrycode)
-  );
   const historicData = useSelector(
     (state: RootState) =>
       state.corona.historicData && state.corona.historicData[countrycode]
   );
-  const deltaData = useSelector(
-    (state: RootState) =>
-      state.corona.historicData && state.corona.deltaData[countrycode]
-  );
   const { daysToShow } = useSelector((state: RootState) => state.corona);
 
   useEffect(() => {
-    if (data == null || deltaData == null || name == null) return;
+    if (historicData == null || name == null) return;
 
     const wd: DayPoint[] = new Array<DayPoint>(7);
     for (let i = 1; i < daysToShow; i++) {
       wd.push({
         date: historicData.timeseries[i].date,
         value: historicData.timeseries[i][name] as number,
-        delta: deltaData[i][name] as number,
+        delta: historicData.timeseries[i][name + 'Delta'] as number,
       });
     }
     setWeekData(wd);
-  }, [data, deltaData]);
+  }, [historicData, name]);
 
   let valueStr = null;
   if (value) {
     valueStr = value as number;
-  } else if (data && name && data[name]) {
-    valueStr = data[name] as number;
+  } else if (historicData && name && historicData.timeseries[0][name]) {
+    valueStr = historicData.timeseries[0][name] as number;
   }
 
   return (
-    <div className="p-col-6 p-lg-3">
+    <div className="p-col">
       <Card className="">
         <div className={styles.label}>{label}</div>
         <div className={styles.number}>

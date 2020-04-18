@@ -2,18 +2,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { fetchLatestData, fetchLatestGlobalData } from "./coronaSlice";
+import { fetchLatestGlobalData } from "./coronaSlice";
 import CountryData from "./CountryData";
 import styles from "./Dashboard.module.scss";
 import GlobalData from "./GlobalData";
-import {Card} from 'primereact/card';
+import { Card } from "primereact/card";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
   const { selectedCountries } = useSelector((state: RootState) => state.corona);
 
   useEffect(() => {
-    dispatch(fetchLatestData());
     dispatch(fetchLatestGlobalData());
   }, []);
 

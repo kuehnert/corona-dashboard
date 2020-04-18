@@ -13,8 +13,8 @@ export interface Props {
 
 const CountryData: React.FC<Props> = ({ countrycode }) => {
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) =>
-    state.corona.latestData?.find((cd) => cd.countrycode.iso2 === countrycode)
+  const data = useSelector(
+    (state: RootState) => state.corona.historicData[countrycode]
   );
 
   useEffect(() => {
@@ -28,6 +28,7 @@ const CountryData: React.FC<Props> = ({ countrycode }) => {
       </h2>
 
       <div className="p-grid">
+        <NumberCard countrycode={countrycode} name="acute" label="Acute" />
         <NumberCard
           countrycode={countrycode}
           name="confirmed"

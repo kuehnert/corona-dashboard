@@ -16,8 +16,8 @@ const NumberValue: React.FC<Props> = ({
   percentage = false,
 }) => {
   let sign = "";
-  if (withSign) {
-    sign = value && value >= 0 ? "+" : "-";
+  if (withSign && value && value >= 0) {
+    sign = "+";
   }
 
   let valueStr;

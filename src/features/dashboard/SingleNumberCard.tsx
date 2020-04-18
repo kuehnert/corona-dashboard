@@ -17,7 +17,6 @@ interface Props {
 interface DayPoint {
   date: string;
   value: number;
-  delta: number;
 }
 
 const SingleNumberCard: React.FC<Props> = ({
@@ -28,39 +27,31 @@ const SingleNumberCard: React.FC<Props> = ({
 }) => {
   const [weekData, setWeekData] = useState<DayPoint[]>([]);
   const { daysToShow } = useSelector((state: RootState) => state.corona);
-  const data = useSelector((state: RootState) =>
-    state.corona.latestData?.find((cd) => cd.countrycode.iso2 === countrycode)
-  );
   const historicData = useSelector(
     (state: RootState) =>
       state.corona.historicData && state.corona.historicData[countrycode]
   );
-  const deltaData = useSelector(
-    (state: RootState) =>
-      state.corona.historicData && state.corona.deltaData[countrycode]
-  );
 
   useEffect(() => {
-    if (data == null || deltaData == null || name == null) return;
+    if (historicData == null || name == null) return;
 
     const wd: DayPoint[] = new Array<DayPoint>(7);
     for (let i = 1; i < daysToShow; i++) {
       wd.push({
         date: historicData.timeseries[i].date,
         value: historicData.timeseries[i][name] as number,
-        delta: deltaData[i][name] as number,
       });
     }
     setWeekData(wd);
-  }, [data, deltaData]);
+  }, [historicData]);
 
   let valueStr = null;
-  if (deltaData) {
-    valueStr = deltaData[0].doublingtime;
+  if (historicData) {
+    valueStr = historicData.timeseries[0].doublingtime;
   }
 
   return (
-    <div className="p-col-6 p-lg-3">
+    <div className="p-col">
       <Card className="">
         <div className={styles.label}>{label}</div>
         <div className={styles.number}>
@@ -69,8 +60,8 @@ const SingleNumberCard: React.FC<Props> = ({
 
         {weekData.map((wd) => (
           <div key={wd.date} className="p-grid p-justify-center">
-            <div className={classnames("p-col-5", styles.right)}>
-              <NumberValue value={wd.delta} /> days
+            <div className={classnames("p-col", styles.right)}>
+              <NumberValue value={wd.value} /> days
             </div>
           </div>
         ))}
