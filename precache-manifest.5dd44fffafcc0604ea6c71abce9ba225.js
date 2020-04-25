@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a6cad0f8ce90104737cf7c21d1397d72",
+    "revision": "e04523a74d2ef1e05450553e4d4054a0",
     "url": "/corona-dashboard/index.html"
   },
   {
-    "revision": "5a7252095ac55d9e6a97",
-    "url": "/corona-dashboard/static/css/2.839a2beb.chunk.css"
+    "revision": "0d1144a34d0b41a5419e",
+    "url": "/corona-dashboard/static/css/2.fe35650e.chunk.css"
   },
   {
-    "revision": "ee1bc84d88fd8ac551a3",
-    "url": "/corona-dashboard/static/css/main.506a891c.chunk.css"
+    "revision": "6a583eef17dfb8c882de",
+    "url": "/corona-dashboard/static/css/main.98515d0f.chunk.css"
   },
   {
-    "revision": "5a7252095ac55d9e6a97",
-    "url": "/corona-dashboard/static/js/2.7ae9fcc8.chunk.js"
+    "revision": "0d1144a34d0b41a5419e",
+    "url": "/corona-dashboard/static/js/2.841760a6.chunk.js"
   },
   {
     "revision": "3453b8997016469371284a28c0e873e2",
-    "url": "/corona-dashboard/static/js/2.7ae9fcc8.chunk.js.LICENSE.txt"
+    "url": "/corona-dashboard/static/js/2.841760a6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ee1bc84d88fd8ac551a3",
-    "url": "/corona-dashboard/static/js/main.cc42a8f7.chunk.js"
+    "revision": "6a583eef17dfb8c882de",
+    "url": "/corona-dashboard/static/js/main.56d0739a.chunk.js"
   },
   {
     "revision": "fb58276de9e8d555e026",
@@ -94,5 +94,21 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "cffb686d7d2f4682df8342bd4d276e09",
     "url": "/corona-dashboard/static/media/open-sans-v15-latin-regular.cffb686d.woff2"
+  },
+  {
+    "revision": "2d2afb2719a1ee903e576e7c457daf81",
+    "url": "/corona-dashboard/static/media/primeicons.2d2afb27.eot"
+  },
+  {
+    "revision": "66ee0deb739ca71f0ecdc39d7c1b22cb",
+    "url": "/corona-dashboard/static/media/primeicons.66ee0deb.woff"
+  },
+  {
+    "revision": "df0140f8e79ecfeffaf85220aaecd7c4",
+    "url": "/corona-dashboard/static/media/primeicons.df0140f8.ttf"
+  },
+  {
+    "revision": "e5e0e94474d5fd92e7e800a8865d297c",
+    "url": "/corona-dashboard/static/media/primeicons.e5e0e944.svg"
   }
 ]);
