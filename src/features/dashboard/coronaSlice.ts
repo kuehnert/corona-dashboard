@@ -17,7 +17,6 @@ export const countryList = [
   { name: "Czechia", code: "CZ" },
   { name: "France", code: "FR" },
   { name: "Greece", code: "GR" },
-  { name: "Hong Kong", code: "HK" },
   { name: "India", code: "IN" },
   { name: "Indonesia", code: "ID" },
   { name: "Iran", code: "IR" },
@@ -38,7 +37,6 @@ export const countryList = [
   { name: "Sri Lanka", code: "LK" },
   { name: "Sweden", code: "SE" },
   { name: "Switzerland", code: "CH" },
-  { name: "Taiwan", code: "TW" },
   { name: "Thailand", code: "TH" },
   { name: "Turkey", code: "TR" },
   { name: "United Kingdom", code: "GB" },
@@ -109,6 +107,7 @@ export const CoronaSlice = createSlice({
       ts = ts.map((gd) => ({
         ...gd,
         acute: gd.confirmed - gd.recovered - gd.deaths,
+        fatality: gd.confirmed > 0 ? gd.deaths / gd.confirmed : NaN,
       }));
 
       // calc deltas to previous days
@@ -157,10 +156,6 @@ export const CoronaSlice = createSlice({
       state.sourceCountries = action.payload.source;
       state.selectedCountries = action.payload.target;
     },
-    resetCountries: (state) => {
-      state.sourceCountries = [...countryList];
-      state.selectedCountries = [];
-    },
   },
 });
 
@@ -168,7 +163,6 @@ export const {
   fetchLatestGlobalSuccess,
   fetchCountryHistoricDataSuccess,
   setCountriesSuccess,
-  resetCountries,
 } = CoronaSlice.actions;
 
 export const getCountries = (): AppThunk => async (dispatch) => {
@@ -190,6 +184,12 @@ export const setCountries = (
   localStorage.setItem("sourceCountries", JSON.stringify(source));
   localStorage.setItem("selectedCountries", JSON.stringify(target));
   dispatch(setCountriesSuccess({ source, target }));
+};
+
+export const resetCountries = (): AppThunk => async (dispatch) => {
+  const source: Country[] = [...countryList];
+  const target: Country[] = [];
+  dispatch(setCountries(source, target));
 };
 
 export const fetchLatestGlobalData = (): AppThunk => async (dispatch) => {

@@ -3,19 +3,19 @@ import classnames from "classnames";
 import { formatPercentage } from "../../utils/formatHelpers";
 
 interface Props {
-  value: number | null | undefined;
-  positiveGood?: boolean;
-  withSign?: boolean;
-  withColor?: boolean;
   percentage?: boolean;
+  positiveGood?: boolean;
+  value: number | null | undefined;
+  withColor?: boolean;
+  withSign?: boolean;
 }
 
 const NumberValue: React.FC<Props> = ({
-  value,
-  positiveGood = false,
-  withSign = false,
-  withColor = false,
   percentage = false,
+  positiveGood = false,
+  value,
+  withColor = false,
+  withSign = false,
 }) => {
   let sign = "";
   if (withSign && value && value >= 0) {

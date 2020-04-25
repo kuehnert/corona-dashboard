@@ -9,8 +9,10 @@ import NumberValue from "./NumberValue";
 
 interface Props {
   countrycode: string;
+  percentage?: boolean;
   label: string;
-  name?: string;
+  name: string;
+  suffix?: string;
   value?: string | number;
 }
 
@@ -21,8 +23,10 @@ interface DayPoint {
 
 const SingleNumberCard: React.FC<Props> = ({
   countrycode,
+  percentage = false,
   label,
   name,
+  suffix,
   value,
 }) => {
   const [weekData, setWeekData] = useState<DayPoint[]>([]);
@@ -45,23 +49,23 @@ const SingleNumberCard: React.FC<Props> = ({
     setWeekData(wd);
   }, [historicData]);
 
-  let valueStr = null;
+  let valueStr = NaN;
   if (historicData) {
-    valueStr = historicData.timeseries[0].doublingtime;
+    valueStr = historicData.timeseries[0][name] as number;
   }
 
   return (
     <div className="p-col">
-      <Card className="">
+      <Card className="card">
         <div className={styles.label}>{label}</div>
         <div className={styles.number}>
-          <NumberValue value={valueStr} /> days
+          <NumberValue value={valueStr} percentage={percentage} /> {suffix}
         </div>
 
         {weekData.map((wd) => (
           <div key={wd.date} className="p-grid p-justify-center">
             <div className={classnames("p-col", styles.right)}>
-              <NumberValue value={wd.value} /> days
+              <NumberValue value={wd.value} percentage={percentage} /> {suffix}
             </div>
           </div>
         ))}
