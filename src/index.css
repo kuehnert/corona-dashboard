@@ -30,3 +30,10 @@ code {
 .bad {
   color: red;
 }
+
+.right {
+  text-align: right;
+}
+.countryPickList {
+  height: 90%;
+}

@@ -2,28 +2,31 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { fetchLatestGlobalData } from "./coronaSlice";
+import { fetchLatestGlobalData, getCountries } from "./coronaSlice";
 import CountryData from "./CountryData";
 import styles from "./Dashboard.module.scss";
 import GlobalData from "./GlobalData";
 import { Card } from "primereact/card";
+import Settings from "./Settings";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
   const { selectedCountries } = useSelector((state: RootState) => state.corona);
 
   useEffect(() => {
+    dispatch(getCountries());
     dispatch(fetchLatestGlobalData());
   }, []);
 
   return (
     <div className={styles.rootContainer}>
       <h1>Mr K.'s Corona Dashboard</h1>
+      <Settings />
 
       <GlobalData />
 
       {selectedCountries.map((c) => (
-        <CountryData key={c} countrycode={c} />
+        <CountryData key={c.code} countrycode={c.code} />
       ))}
 
       <Card className="footer">

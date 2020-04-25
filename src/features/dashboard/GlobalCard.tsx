@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../app/store";
-import { fetchCountryHistoricData, GlobalData } from "./coronaSlice";
-import styles from "./NumberCard.module.scss";
 import { Card } from "primereact/card";
+import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import styles from "./NumberCard.module.scss";
 import NumberValue from "./NumberValue";
 
 interface Props {

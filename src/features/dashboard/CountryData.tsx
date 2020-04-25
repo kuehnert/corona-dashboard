@@ -6,6 +6,8 @@ import { fetchCountryHistoricData } from "./coronaSlice";
 import styles from "./CountryData.module.scss";
 import NumberCard from "./NumberCard";
 import SingleNumberCard from "./SingleNumberCard";
+import { formatDate } from "../../utils/formatHelpers";
+import classNames from "classnames";
 
 export interface Props {
   countrycode: string;
@@ -23,9 +25,14 @@ const CountryData: React.FC<Props> = ({ countrycode }) => {
 
   return (
     <div className="ui container">
-      <h2 className={styles.countryHeader}>
-        {data?.countryregion || countrycode}
-      </h2>
+      <div className="p-grid">
+        <h2 className={classNames("p-col", styles.countryHeader)}>
+          {data?.countryregion || countrycode}
+        </h2>
+        <h3 className={classNames("p-col", styles.countryHeader, "right")}>
+          {formatDate(data?.lastupdate)}
+        </h3>
+      </div>
 
       <div className="p-grid">
         <NumberCard countrycode={countrycode} name="acute" label="Acute" />

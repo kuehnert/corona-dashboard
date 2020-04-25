@@ -3,6 +3,49 @@ import axios from "axios";
 import * as dateFns from "date-fns";
 import { AppThunk } from "../../app/store";
 
+export interface Country {
+  name: string;
+  code: string;
+}
+
+export const countryList = [
+  { name: "Germany", code: "DE" },
+  { name: "Australia", code: "AU" },
+  { name: "Austria", code: "AT" },
+  { name: "Canada", code: "CA" },
+  { name: "China", code: "CN" },
+  { name: "Czechia", code: "CZ" },
+  { name: "France", code: "FR" },
+  { name: "Greece", code: "GR" },
+  { name: "Hong Kong", code: "HK" },
+  { name: "India", code: "IN" },
+  { name: "Indonesia", code: "ID" },
+  { name: "Iran", code: "IR" },
+  { name: "Ireland", code: "IE" },
+  { name: "Israel", code: "IL" },
+  { name: "Italy", code: "IT" },
+  { name: "Japan", code: "JP" },
+  { name: "Luxembourg", code: "LU" },
+  { name: "Malaysia", code: "MY" },
+  { name: "Maldives", code: "MV" },
+  { name: "Mexico", code: "MX" },
+  { name: "Netherlands", code: "NL" },
+  { name: "Nigeria", code: "NG" },
+  { name: "Poland", code: "PL" },
+  { name: "Portugal", code: "PT" },
+  { name: "Singapore", code: "SG" },
+  { name: "Spain", code: "ES" },
+  { name: "Sri Lanka", code: "LK" },
+  { name: "Sweden", code: "SE" },
+  { name: "Switzerland", code: "CH" },
+  { name: "Taiwan", code: "TW" },
+  { name: "Thailand", code: "TH" },
+  { name: "Turkey", code: "TR" },
+  { name: "United Kingdom", code: "GB" },
+  { name: "United States", code: "US" },
+  { name: "Viet Nam", code: "VN" },
+];
+
 interface HistoricData {
   countryregion: string;
   lastupdate: string;
@@ -34,16 +77,16 @@ export interface GlobalData {
 interface CoronaState {
   latestGlobalData: GlobalData | null;
   historicData: { [code: string]: HistoricData };
-  selectedCountries: string[];
+  sourceCountries: Country[];
+  selectedCountries: Country[];
   daysToShow: number;
 }
 
 const initialState: CoronaState = {
   latestGlobalData: null,
   historicData: {},
-  // selectedCountries: ["DE", "GB", "FR", "JP", "US"],
-  selectedCountries: ["DE", "GB", "US", "FR", "CA"],
-  // selectedCountries: ["DE"],
+  sourceCountries: [...countryList],
+  selectedCountries: [],
   daysToShow: 7,
 };
 
@@ -107,13 +150,47 @@ export const CoronaSlice = createSlice({
       data.timeseries = ts;
       state.historicData[code] = data;
     },
+    setCountriesSuccess: (
+      state,
+      action: PayloadAction<{ source: Country[]; target: Country[] }>
+    ) => {
+      state.sourceCountries = action.payload.source;
+      state.selectedCountries = action.payload.target;
+    },
+    resetCountries: (state) => {
+      state.sourceCountries = [...countryList];
+      state.selectedCountries = [];
+    },
   },
 });
 
 export const {
   fetchLatestGlobalSuccess,
   fetchCountryHistoricDataSuccess,
+  setCountriesSuccess,
+  resetCountries,
 } = CoronaSlice.actions;
+
+export const getCountries = (): AppThunk => async (dispatch) => {
+  const sourceStr = localStorage.getItem("sourceCountries");
+
+  if (sourceStr) {
+    const targetStr = localStorage.getItem("selectedCountries");
+    const source = JSON.parse(sourceStr!);
+    const target = JSON.parse(targetStr!);
+
+    dispatch(setCountriesSuccess({ source, target }));
+  }
+};
+
+export const setCountries = (
+  source: Country[],
+  target: Country[]
+): AppThunk => async (dispatch) => {
+  localStorage.setItem("sourceCountries", JSON.stringify(source));
+  localStorage.setItem("selectedCountries", JSON.stringify(target));
+  dispatch(setCountriesSuccess({ source, target }));
+};
 
 export const fetchLatestGlobalData = (): AppThunk => async (dispatch) => {
   let data: GlobalData;

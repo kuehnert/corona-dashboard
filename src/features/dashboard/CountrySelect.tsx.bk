@@ -1,0 +1,28 @@
+import React from "react";
+import { MultiSelect } from "primereact/multiselect";
+import { RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { countryList, setSelectedCountries } from "./coronaSlice";
+import styles from './CountrySelect.module.scss'
+
+const CountrySelect: React.FC = () => {
+  const { selectedCountries } = useSelector((state: RootState) => state.corona);
+  const dispatch = useDispatch();
+
+  const handleChange = (event: any) => {
+    dispatch(setSelectedCountries(event.value));
+  };
+
+  return (
+    <MultiSelect
+      optionLabel="name"
+      optionValue="code"
+      value={selectedCountries}
+      options={countryList}
+      onChange={handleChange}
+      className={styles.countrySelect}
+    />
+  );
+};
+
+export default CountrySelect;

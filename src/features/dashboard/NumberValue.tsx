@@ -31,17 +31,16 @@ const NumberValue: React.FC<Props> = ({
     valueStr = value.toLocaleString();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let good =
     withColor &&
     ((positiveGood && sign === "+") || (!positiveGood && sign === ""));
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   let bad =
     withColor &&
     ((positiveGood && sign === "") || (!positiveGood && sign === "+"));
 
   return (
-    <span className={classnames({good: good, bad: bad})}>
+    <span className={classnames({ good: good, bad: bad })}>
       {sign}
       {valueStr}
     </span>
