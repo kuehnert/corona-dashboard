@@ -20,7 +20,7 @@ const NumberCard: React.FC<Props> = ({ label, name, value, percentage }) => {
 
   return (
     <div className="p-col">
-      <Card>
+      <Card className="card">
         <div className={styles.label}>{label}</div>
         <div className={styles.number}>
           <NumberValue value={valueStr} percentage={percentage} />

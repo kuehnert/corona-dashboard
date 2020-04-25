@@ -50,8 +50,8 @@ const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
   }
 
   return (
-    <div className="p-col">
-      <Card className="">
+    <div className="p-col-6 p-md-3 p-lg-2">
+      <Card className="card">
         <div className={styles.label}>{label}</div>
         <div className={styles.number}>
           <NumberValue value={valueStr} />
@@ -59,7 +59,7 @@ const NumberCard: React.FC<Props> = ({ countrycode, label, name, value }) => {
 
         {weekData.map((wd) => (
           <div key={wd.date} className="p-grid">
-            <div className={classnames("p-col-5", styles.left)}>
+            <div className={classnames("p-col-5", styles.right)}>
               <NumberValue value={wd.delta} withSign={true} withColor={true} positiveGood={name === 'recovered'} />
             </div>
             <div className={classnames("p-col-7", styles.right)}>

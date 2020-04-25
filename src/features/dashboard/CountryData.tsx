@@ -53,8 +53,16 @@ const CountryData: React.FC<Props> = ({ countrycode }) => {
 
         <SingleNumberCard
           countrycode={countrycode}
+          name="fatality"
+          label="Fatality Rate"
+          percentage
+        />
+
+        <SingleNumberCard
+          countrycode={countrycode}
           label="Doubling Time"
           name="doublingtime"
+          suffix="d"
         />
       </div>
     </div>
