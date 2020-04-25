@@ -8,6 +8,7 @@ import styles from "./Dashboard.module.scss";
 import GlobalData from "./GlobalData";
 import { Card } from "primereact/card";
 import Settings from "./Settings";
+import CountryChart from "./CountryChart";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,10 @@ const Dashboard: React.FC = () => {
       <GlobalData />
 
       {selectedCountries.map((c) => (
-        <CountryData key={c.code} countrycode={c.code} />
+        <div key={c.code}>
+          <CountryData countrycode={c.code} />
+          <CountryChart countrycode={c.code} />
+        </div>
       ))}
 
       <Card className="footer">
