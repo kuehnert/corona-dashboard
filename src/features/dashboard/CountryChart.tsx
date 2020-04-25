@@ -61,7 +61,7 @@ const CountryChart: React.FC<Props> = ({ countrycode }) => {
 
   return (
     <Card title="Chart">
-      <Chart type="line" data={chartData} />
+      <Chart type="line" data={chartData} height={window.innerWidth < 600 ? "300" : ""} />
     </Card>
   );
 };

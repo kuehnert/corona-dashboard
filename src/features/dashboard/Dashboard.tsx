@@ -12,7 +12,9 @@ import CountryChart from "./CountryChart";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const { selectedCountries } = useSelector((state: RootState) => state.corona);
+  const { selectedCountries, showCharts } = useSelector(
+    (state: RootState) => state.corona
+  );
 
   useEffect(() => {
     dispatch(getCountries());
@@ -29,7 +31,7 @@ const Dashboard: React.FC = () => {
       {selectedCountries.map((c) => (
         <div key={c.code}>
           <CountryData countrycode={c.code} />
-          <CountryChart countrycode={c.code} />
+          {showCharts && <CountryChart countrycode={c.code} />}
         </div>
       ))}
 

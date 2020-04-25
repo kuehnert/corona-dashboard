@@ -1,19 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import classNames from "classnames";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+import { ToggleButton } from "primereact/togglebutton";
+import { Toolbar } from "primereact/toolbar";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { fetchCountryHistoricData, resetCountries, setShowCharts } from "./coronaSlice";
 import CountryPickList from "./CountryPickList";
 import styles from "./Settings.module.scss";
-import { Toolbar } from "primereact/toolbar";
-import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { resetCountries, fetchCountryHistoricData } from "./coronaSlice";
-import { RootState } from "../../app/store";
 
 const Settings: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
-  const { selectedCountries } = useSelector((state: RootState) => state.corona);
+  const { selectedCountries, showCharts } = useSelector(
+    (state: RootState) => state.corona
+  );
   const reloadCountries = () => {
     selectedCountries.forEach((country) => {
       dispatch(fetchCountryHistoricData(country.code));
@@ -34,18 +37,17 @@ const Settings: React.FC = () => {
       </Dialog>
 
       <Toolbar className={styles.toolbar}>
-        <Button
-          label="Countries"
-          icon="pi pi-globe"
+        <ToggleButton
+          onLabel="Charts"
+          offLabel="No Charts"
+          onIcon="pi pi-check"
+          offIcon="pi pi-times"
+          checked={showCharts}
+          onChange={() => dispatch(setShowCharts(!showCharts))}
           className={classNames(
-            styles.button,
+            styles.toggleButton,
             "p-button-raised p-button-rounded"
           )}
-          tooltip="Select Countries"
-          tooltipOptions={{
-            position: "bottom",
-          }}
-          onClick={() => setVisible(true)}
         />
 
         <Button
@@ -60,6 +62,20 @@ const Settings: React.FC = () => {
           tooltipOptions={{
             position: "bottom",
           }}
+        />
+
+        <Button
+          label="Countries"
+          icon="pi pi-globe"
+          className={classNames(
+            styles.button,
+            "p-button-raised p-button-rounded"
+          )}
+          tooltip="Select Countries"
+          tooltipOptions={{
+            position: "bottom",
+          }}
+          onClick={() => setVisible(true)}
         />
 
         <Button

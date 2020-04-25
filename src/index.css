@@ -21,6 +21,7 @@ code {
 
 body .card {
   background-color: #dddddd;
+  margin-bottom: 16px;
 }
 
 body .footer {

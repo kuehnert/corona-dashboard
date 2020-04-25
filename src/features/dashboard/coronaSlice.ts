@@ -78,6 +78,7 @@ interface CoronaState {
   sourceCountries: Country[];
   selectedCountries: Country[];
   daysToShow: number;
+  showCharts: boolean;
 }
 
 const initialState: CoronaState = {
@@ -86,6 +87,7 @@ const initialState: CoronaState = {
   sourceCountries: [...countryList],
   selectedCountries: [],
   daysToShow: 7,
+  showCharts: true,
 };
 
 export const CoronaSlice = createSlice({
@@ -149,6 +151,9 @@ export const CoronaSlice = createSlice({
       data.timeseries = ts;
       state.historicData[code] = data;
     },
+    setShowChartsSuccess: (state, action: PayloadAction<boolean>) => {
+      state.showCharts = action.payload;
+    },
     setCountriesSuccess: (
       state,
       action: PayloadAction<{ source: Country[]; target: Country[] }>
@@ -163,6 +168,7 @@ export const {
   fetchLatestGlobalSuccess,
   fetchCountryHistoricDataSuccess,
   setCountriesSuccess,
+  setShowChartsSuccess,
 } = CoronaSlice.actions;
 
 export const getCountries = (): AppThunk => async (dispatch) => {
@@ -172,9 +178,17 @@ export const getCountries = (): AppThunk => async (dispatch) => {
     const targetStr = localStorage.getItem("selectedCountries");
     const source = JSON.parse(sourceStr!);
     const target = JSON.parse(targetStr!);
-
+    const showCharts = JSON.parse(localStorage.getItem("showCharts")!);
     dispatch(setCountriesSuccess({ source, target }));
+    dispatch(setShowChartsSuccess(showCharts));
   }
+};
+
+export const setShowCharts = (showCharts: boolean): AppThunk => async (
+  dispatch
+) => {
+  localStorage.setItem("showCharts", JSON.stringify(showCharts));
+  dispatch(setShowChartsSuccess(showCharts));
 };
 
 export const setCountries = (
