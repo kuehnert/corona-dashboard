@@ -9,11 +9,13 @@ import GlobalData from "./GlobalData";
 import { Card } from "primereact/card";
 import Settings from "./Settings";
 import CountryChart from "./CountryChart";
-import icon from '../../icon.svg';
+import icon from "../../icon.svg";
+import { formatDate } from "../../utils/formatHelpers";
+import classNames from "classnames";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const { selectedCountries, showCharts } = useSelector(
+  const { historicData, selectedCountries, showCharts } = useSelector(
     (state: RootState) => state.corona
   );
 
@@ -24,15 +26,33 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className={styles.rootContainer}>
-      <h1><img src={icon} alt="icon" width={48} style={{position: 'relative', bottom: '-12px'}}/> Mr K.'s Corona Dashboard</h1>
+      <h1>
+        <img
+          src={icon}
+          alt="icon"
+          width={48}
+          style={{ position: "relative", bottom: "-12px" }}
+        />{" "}
+        Mr K.'s Corona Dashboard
+      </h1>
       <Settings />
 
       <GlobalData />
 
       {selectedCountries.map((c) => (
         <div key={c.code}>
-          <CountryData countrycode={c.code} />
+          <div className="p-grid">
+            <h2 className={classNames("p-col", styles.countryHeader)}>
+              {c.name}
+            </h2>
+            <h3 className={classNames("p-col", styles.countryHeader, "right")}>
+              {formatDate(historicData[c.code]?.lastupdate)}
+            </h3>
+          </div>
+
           {showCharts && <CountryChart countrycode={c.code} />}
+
+          <CountryData countrycode={c.code} />
         </div>
       ))}
 
@@ -59,7 +79,12 @@ const Dashboard: React.FC = () => {
         </p>
 
         <p>
-          Thanks to <a href="https://www.iconfinder.com/justicon">Just Icon</a> for the beautiful <a href="https://www.iconfinder.com/icons/5929243/antivirus_bacteria_cell_coronavirus_infection_malware_virus_icon">Corona icon</a>.
+          Thanks to <a href="https://www.iconfinder.com/justicon">Just Icon</a>{" "}
+          for the beautiful{" "}
+          <a href="https://www.iconfinder.com/icons/5929243/antivirus_bacteria_cell_coronavirus_infection_malware_virus_icon">
+            Corona icon
+          </a>
+          .
         </p>
       </Card>
     </div>

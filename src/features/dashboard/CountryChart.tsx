@@ -60,8 +60,15 @@ const CountryChart: React.FC<Props> = ({ countrycode }) => {
   if (chartData == null) return null;
 
   return (
-    <Card title="Chart">
-      <Chart type="line" data={chartData} height={window.innerWidth < 600 ? "300" : ""} />
+    <Card
+      title={`Chart for ${data.countryregion}`}
+      style={{ marginBottom: "8px" }}
+    >
+      <Chart
+        type="line"
+        data={chartData}
+        height={window.innerWidth < 600 ? "300" : ""}
+      />
     </Card>
   );
 };

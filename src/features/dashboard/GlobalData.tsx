@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import GlobalCard from "./GlobalCard";
-import styles from "./CountryData.module.scss";
+import styles from "./Dashboard.module.scss";
 
 const GlobalData: React.FC = () => {
   const data = useSelector((state: RootState) => state.corona.latestGlobalData);
