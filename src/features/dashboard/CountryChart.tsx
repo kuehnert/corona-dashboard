@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { Card } from "primereact/card";
+import { parse, format } from "date-fns";
 
 export interface Props {
   countrycode: string;
@@ -22,7 +23,7 @@ const CountryChart: React.FC<Props> = ({ countrycode }) => {
 
     const reversed = data.timeseries.slice(0, 60).reverse();
     const newData = {
-      labels: reversed.map((ts) => ts.date),
+      labels: reversed.map((ts) => format(parse(ts.date, 'yyyy-MM-dd', new Date()), 'dd-MM')),
       datasets: [
         {
           label: "Acute",
@@ -61,7 +62,6 @@ const CountryChart: React.FC<Props> = ({ countrycode }) => {
 
   return (
     <Card
-      title={`Chart for ${data.countryregion}`}
       style={{ marginBottom: "8px" }}
     >
       <Chart
