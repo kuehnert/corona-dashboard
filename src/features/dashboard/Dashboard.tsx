@@ -9,6 +9,7 @@ import GlobalData from "./GlobalData";
 import { Card } from "primereact/card";
 import Settings from "./Settings";
 import CountryChart from "./CountryChart";
+import icon from '../../icon.svg';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className={styles.rootContainer}>
-      <h1>Mr K.'s Corona Dashboard</h1>
+      <h1><img src={icon} alt="icon" width={48} style={{position: 'relative', bottom: '-12px'}}/> Mr K.'s Corona Dashboard</h1>
       <Settings />
 
       <GlobalData />
@@ -55,6 +56,10 @@ const Dashboard: React.FC = () => {
           <a href="https://ainize.ai/laeyoung/wuhan-coronavirus-api">
             https://ainize.ai/laeyoung/wuhan-coronavirus-api
           </a>
+        </p>
+
+        <p>
+          Thanks to <a href="https://www.iconfinder.com/justicon">Just Icon</a> for the beautiful <a href="https://www.iconfinder.com/icons/5929243/antivirus_bacteria_cell_coronavirus_infection_malware_virus_icon">Corona icon</a>.
         </p>
       </Card>
     </div>
