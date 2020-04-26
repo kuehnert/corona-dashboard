@@ -1,28 +1,29 @@
 {
   "files": {
-    "main.css": "/corona-dashboard/static/css/main.45cd6906.chunk.css",
-    "main.js": "/corona-dashboard/static/js/main.bcec495b.chunk.js",
-    "main.js.map": "/corona-dashboard/static/js/main.bcec495b.chunk.js.map",
+    "main.css": "/corona-dashboard/static/css/main.be40a1a7.chunk.css",
+    "main.js": "/corona-dashboard/static/js/main.b08347cd.chunk.js",
+    "main.js.map": "/corona-dashboard/static/js/main.b08347cd.chunk.js.map",
     "runtime-main.js": "/corona-dashboard/static/js/runtime-main.c4e98412.js",
     "runtime-main.js.map": "/corona-dashboard/static/js/runtime-main.c4e98412.js.map",
     "static/css/2.fe35650e.chunk.css": "/corona-dashboard/static/css/2.fe35650e.chunk.css",
-    "static/js/2.7f073f63.chunk.js": "/corona-dashboard/static/js/2.7f073f63.chunk.js",
-    "static/js/2.7f073f63.chunk.js.map": "/corona-dashboard/static/js/2.7f073f63.chunk.js.map",
+    "static/js/2.c6a0c8d8.chunk.js": "/corona-dashboard/static/js/2.c6a0c8d8.chunk.js",
+    "static/js/2.c6a0c8d8.chunk.js.map": "/corona-dashboard/static/js/2.c6a0c8d8.chunk.js.map",
     "index.html": "/corona-dashboard/index.html",
-    "precache-manifest.5ec80252ee0c3159c19dc7df27f65866.js": "/corona-dashboard/precache-manifest.5ec80252ee0c3159c19dc7df27f65866.js",
+    "precache-manifest.22fc8b047e11d8f50f5329d883229261.js": "/corona-dashboard/precache-manifest.22fc8b047e11d8f50f5329d883229261.js",
     "service-worker.js": "/corona-dashboard/service-worker.js",
     "static/css/2.fe35650e.chunk.css.map": "/corona-dashboard/static/css/2.fe35650e.chunk.css.map",
-    "static/css/main.45cd6906.chunk.css.map": "/corona-dashboard/static/css/main.45cd6906.chunk.css.map",
-    "static/js/2.7f073f63.chunk.js.LICENSE.txt": "/corona-dashboard/static/js/2.7f073f63.chunk.js.LICENSE.txt",
+    "static/css/main.be40a1a7.chunk.css.map": "/corona-dashboard/static/css/main.be40a1a7.chunk.css.map",
+    "static/js/2.c6a0c8d8.chunk.js.LICENSE.txt": "/corona-dashboard/static/js/2.c6a0c8d8.chunk.js.LICENSE.txt",
     "static/media/primereact.min.css": "/corona-dashboard/static/media/line.567f5738.gif",
+    "static/media/icon.svg": "/corona-dashboard/static/media/icon.2b385a90.svg",
     "static/media/theme.css": "/corona-dashboard/static/media/open-sans-v15-latin-regular.cffb686d.woff2",
     "static/media/primeicons.css": "/corona-dashboard/static/media/primeicons.e5e0e944.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.c4e98412.js",
     "static/css/2.fe35650e.chunk.css",
-    "static/js/2.7f073f63.chunk.js",
-    "static/css/main.45cd6906.chunk.css",
-    "static/js/main.bcec495b.chunk.js"
+    "static/js/2.c6a0c8d8.chunk.js",
+    "static/css/main.be40a1a7.chunk.css",
+    "static/js/main.b08347cd.chunk.js"
   ]
 }

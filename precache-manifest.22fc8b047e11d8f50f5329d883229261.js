@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c896d718e3accff54b8cdfd6b9fe8638",
+    "revision": "29115ceb3e0a614a86ba5591e523f38f",
     "url": "/corona-dashboard/index.html"
   },
   {
-    "revision": "a7f84f517a1766fdd5f6",
+    "revision": "7d9f8fd029c7dc31c291",
     "url": "/corona-dashboard/static/css/2.fe35650e.chunk.css"
   },
   {
-    "revision": "da2d372b6256ca4f09f6",
-    "url": "/corona-dashboard/static/css/main.45cd6906.chunk.css"
+    "revision": "a2ba0a29096c7ad4b77f",
+    "url": "/corona-dashboard/static/css/main.be40a1a7.chunk.css"
   },
   {
-    "revision": "a7f84f517a1766fdd5f6",
-    "url": "/corona-dashboard/static/js/2.7f073f63.chunk.js"
+    "revision": "7d9f8fd029c7dc31c291",
+    "url": "/corona-dashboard/static/js/2.c6a0c8d8.chunk.js"
   },
   {
     "revision": "eaaf63558baae456918a991a401208d7",
-    "url": "/corona-dashboard/static/js/2.7f073f63.chunk.js.LICENSE.txt"
+    "url": "/corona-dashboard/static/js/2.c6a0c8d8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "da2d372b6256ca4f09f6",
-    "url": "/corona-dashboard/static/js/main.bcec495b.chunk.js"
+    "revision": "a2ba0a29096c7ad4b77f",
+    "url": "/corona-dashboard/static/js/main.b08347cd.chunk.js"
   },
   {
     "revision": "fb58276de9e8d555e026",
@@ -30,6 +30,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "c7a33805ffda0d32bd2a9904c8b02750",
     "url": "/corona-dashboard/static/media/color.c7a33805.png"
+  },
+  {
+    "revision": "2b385a903855e352aba5dc7eaf862c6d",
+    "url": "/corona-dashboard/static/media/icon.2b385a90.svg"
   },
   {
     "revision": "567f57385ea3dde2c9aec797d07850d2",
