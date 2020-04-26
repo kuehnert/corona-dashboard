@@ -9,10 +9,8 @@ export interface Country {
 }
 
 export const countryList = [
-  { name: "Germany", code: "DE" },
   { name: "Australia", code: "AU" },
   { name: "Austria", code: "AT" },
-  { name: "Canada", code: "CA" },
   { name: "China", code: "CN" },
   { name: "Czechia", code: "CZ" },
   { name: "France", code: "FR" },
@@ -22,7 +20,6 @@ export const countryList = [
   { name: "Iran", code: "IR" },
   { name: "Ireland", code: "IE" },
   { name: "Israel", code: "IL" },
-  { name: "Italy", code: "IT" },
   { name: "Japan", code: "JP" },
   { name: "Luxembourg", code: "LU" },
   { name: "Malaysia", code: "MY" },
@@ -39,9 +36,15 @@ export const countryList = [
   { name: "Switzerland", code: "CH" },
   { name: "Thailand", code: "TH" },
   { name: "Turkey", code: "TR" },
+  { name: "Viet Nam", code: "VN" },
+];
+
+const defaultCountries = [
+  { name: "Germany", code: "DE" },
   { name: "United Kingdom", code: "GB" },
   { name: "United States", code: "US" },
-  { name: "Viet Nam", code: "VN" },
+  { name: "Italy", code: "IT" },
+  { name: "Canada", code: "CA" },
 ];
 
 interface HistoricData {
@@ -85,7 +88,7 @@ const initialState: CoronaState = {
   latestGlobalData: null,
   historicData: {},
   sourceCountries: [...countryList],
-  selectedCountries: [],
+  selectedCountries: [...defaultCountries],
   daysToShow: 7,
   showCharts: true,
 };
@@ -202,7 +205,7 @@ export const setCountries = (
 
 export const resetCountries = (): AppThunk => async (dispatch) => {
   const source: Country[] = [...countryList];
-  const target: Country[] = [];
+  const target: Country[] = [...defaultCountries];
   dispatch(setCountries(source, target));
 };
 
