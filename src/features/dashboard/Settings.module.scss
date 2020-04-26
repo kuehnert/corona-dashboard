@@ -12,8 +12,18 @@ body .button {
 }
 
 body .toggleButton {
-  width: 120px;
+  width: 140px;
   height: 33px;
   margin-right: 12px;
   margin-bottom: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+  .dialog {
+    width: 100%;
+  }
+
+  .dialogContent {
+    height: 100%;
+  }
 }

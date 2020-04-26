@@ -18,6 +18,8 @@ const CountryPickList: React.FC = () => {
     dispatch(setCountries(event.source, event.target));
   };
 
+  const style = window.innerWidth < 600 ? { width: "100px" } : {};
+
   return (
     <PickList
       source={sourceCountries}
@@ -25,11 +27,11 @@ const CountryPickList: React.FC = () => {
       itemTemplate={itemTemplate}
       sourceHeader="Available"
       targetHeader="Seleced"
-      responsive={true}
+      responsive={window.innerWidth > 600}
       onChange={handleChange}
       className={"countryPickList"}
-      sourceStyle={{ height: "100%" }}
-      targetStyle={{ height: "100%" }}
+      sourceStyle={{ height: "100%", ...style }}
+      targetStyle={{ height: "100%", ...style }}
     />
   );
 };

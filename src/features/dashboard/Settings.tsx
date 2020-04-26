@@ -7,7 +7,11 @@ import { Toolbar } from "primereact/toolbar";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { fetchCountryHistoricData, resetCountries, setShowCharts } from "./coronaSlice";
+import {
+  fetchCountryHistoricData,
+  resetCountries,
+  setShowCharts,
+} from "./coronaSlice";
 import CountryPickList from "./CountryPickList";
 import styles from "./Settings.module.scss";
 
@@ -38,7 +42,7 @@ const Settings: React.FC = () => {
 
       <Toolbar className={styles.toolbar}>
         <ToggleButton
-          onLabel="Charts"
+          onLabel="Show Charts"
           offLabel="No Charts"
           onIcon="pi pi-check"
           offIcon="pi pi-times"
@@ -51,7 +55,7 @@ const Settings: React.FC = () => {
         />
 
         <Button
-          label="Reload"
+          label="Reload Data"
           icon="pi pi-replay"
           className={classNames(
             styles.button,
@@ -81,7 +85,10 @@ const Settings: React.FC = () => {
         <Button
           label="Reset"
           icon="pi pi-times"
-          className="p-button-raised p-button-rounded p-button-warning"
+          className={classNames(
+            styles.button,
+            "p-button-raised p-button-rounded p-button-warning"
+          )}
           tooltip="Reset country list to defaults"
           onClick={() => dispatch(resetCountries())}
           tooltipOptions={{

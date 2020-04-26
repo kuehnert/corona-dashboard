@@ -27,12 +27,12 @@ const Dashboard: React.FC = () => {
   return (
     <div className={styles.rootContainer}>
       <h1>
-        <img
+        {window.innerWidth > 600 && (<img
           src={icon}
           alt="icon"
           width={48}
-          style={{ position: "relative", bottom: "-12px" }}
-        />{" "}
+          style={{ position: "relative", bottom: "-12px", marginRight: "24px" }}
+        />)}
         Mr K.'s Corona Dashboard
       </h1>
       <Settings />
