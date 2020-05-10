@@ -11,10 +11,20 @@ export interface Country {
 export const countryList = [
   { name: "Australia", code: "AU" },
   { name: "Austria", code: "AT" },
+  { name: "Belgium", code: "BE" },
+  { name: "Brazil", code: "BR" },
+  { name: "Cambodia", code: "KH" },
+  { name: "Chile", code: "CL" },
   { name: "China", code: "CN" },
+  { name: "Colombia", code: "CO" },
+  { name: "Croatia", code: "HR" },
   { name: "Czechia", code: "CZ" },
+  { name: "Denmark", code: "DK" },
+  { name: "Dominican Republic", code: "DO" },
+  { name: "Egypt", code: "EG" },
   { name: "France", code: "FR" },
   { name: "Greece", code: "GR" },
+  { name: "Hungary", code: "HU" },
   { name: "India", code: "IN" },
   { name: "Indonesia", code: "ID" },
   { name: "Iran", code: "IR" },
@@ -26,17 +36,26 @@ export const countryList = [
   { name: "Maldives", code: "MV" },
   { name: "Mexico", code: "MX" },
   { name: "Netherlands", code: "NL" },
+  { name: "New Zealand", code: "NZ" },
   { name: "Nigeria", code: "NG" },
+  { name: "Peru", code: "PE" },
   { name: "Poland", code: "PL" },
   { name: "Portugal", code: "PT" },
+  { name: "Romania", code: "RO" },
+  { name: "Russia", code: "RU" },
   { name: "Singapore", code: "SG" },
+  { name: "South Africa", code: "ZA" },
+  { name: "South Korea", code: "KR" },
   { name: "Spain", code: "ES" },
   { name: "Sri Lanka", code: "LK" },
   { name: "Sweden", code: "SE" },
   { name: "Switzerland", code: "CH" },
   { name: "Thailand", code: "TH" },
+  { name: "Tunisia", code: "TN" },
   { name: "Turkey", code: "TR" },
+  { name: "Ukraine", code: "UA" },
   { name: "Viet Nam", code: "VN" },
+  { name: "Zimbabwe", code: "ZW" },
 ];
 
 const defaultCountries = [
@@ -161,7 +180,9 @@ export const CoronaSlice = createSlice({
       state,
       action: PayloadAction<{ source: Country[]; target: Country[] }>
     ) => {
-      state.sourceCountries = action.payload.source;
+      state.sourceCountries = action.payload.source.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
       state.selectedCountries = action.payload.target;
     },
   },
